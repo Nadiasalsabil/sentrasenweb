@@ -66,6 +66,22 @@
                                     <form id="form_in" name="form_in" action="" method="post" enctype="multipart/form-data" autocomplete="off">
                                         <div class="row">
 						<div class="col-lg-6">
+						<div class="form-group">
+                                 <label>Nama Pengirim:</label>
+                                  <textarea name="namapengirim" pattern="[a-zA-Z]+" class="form-control" rows="3" placeholder="Nama Pengirim.."></textarea>
+                            </div>
+							<div class="form-group">
+                                 <label>No Telepon Pengirim:</label>
+                                  <textarea name="notlppengirim" pattern="[a-zA-Z]+" class="form-control" rows="3" placeholder="No Telepon Pengirim.."></textarea>
+                            </div>
+							<div class="form-group">
+                                 <label>Nama Penerima:</label>
+                                  <textarea name="namapenerima" pattern="[a-zA-Z]+" class="form-control" rows="3" placeholder="Nama Penerima.."></textarea>
+                            </div>
+							<div class="form-group">
+                                 <label>No Telepon Penerima:</label>
+                                  <textarea name="notlppenerima" pattern="[a-zA-Z]+" class="form-control" rows="3" placeholder="No Telepon Penerima.."></textarea>
+                            </div>
                             <div class="form-group">
                                  <label>deskripsi barang:</label>
                                   <textarea name="deskbrg" pattern="[a-zA-Z]+" class="form-control" rows="3" placeholder="deskripsi barang.."></textarea>
