@@ -119,11 +119,11 @@
 							<div class="col-lg-6">
 							<div class="form-group">
                                  <label>jumlah barang:</label>
-                            <input type="number" id="jumbrg" name="jumbrg" min="0" oninvalid="this.setCustomValidity('jangan minus ')"  placeholder="jumlah barang.." class="form-control" required >
+                            <input type="number" id="jumbrg" name="jumbrg" min="0"  placeholder="jumlah barang.." class="form-control" required >
 							</div>
 							<div class="form-group">
                                  <label>total berat barang (Kg):</label>
-                            <input type="number" id="berat" name="berat" min="0" oninvalid="this.setCustomValidity('jangan minus ')"  placeholder="total berat barang.." class="form-control" required >
+                            <input type="number" id="berat" name="berat" min="0"  placeholder="total berat barang.." class="form-control" required >
 							</div>
 								<div class="form-group">
                                         <label>tipe service:</label>
@@ -155,38 +155,25 @@
 												<div class="form-group">
                                                     <label>asal:</label>
 <select id="asal" name="asal" class="form-control" required >
-<?php
-try{
-	$query = "SELECT dari FROM msttarif GROUP BY dari ORDER BY dari ASC";
-	$exe_query = $use_pdo -> prepare($query);
-	$exe_query -> execute();
-	$baris = $exe_query -> fetchAll(PDO::FETCH_ASSOC);	
-	while($rt = array_shift($baris)){
-	echo '<option value="'.$rt['dari'].'">'.$rt['dari'].'</option>';	
-		}
-	}catch(PDOException  $e ){
-		echo "Error: ".$e;
-		die();
-		}
-?>
+<option> Jakarta 
+
 </select>
                                                 </div>
 												<div class="form-group">
                                                     <label>tujuan:</label>
-<select id="tujuan" name="tujuan" class="form-control" required >
+<select id="tujuan" name="tujuan" id="tujuan" class="form-control" required >
+
+<option>--Pilih Tujuan--</option>
 <?php
-try{
-	$query2 = "SELECT ke FROM msttarif GROUP BY ke ORDER BY ke ASC";
-	$exe_query2 = $use_pdo -> prepare($query2);
-	$exe_query2 -> execute();
-	$baris2 = $exe_query2 -> fetchAll(PDO::FETCH_ASSOC);	
-	while($rt2 = array_shift($baris2)){
-	echo '<option value="'.$rt2['ke'].'">'.$rt2['ke'].'</option>';	
-		}
-	}catch(PDOException  $e ){
-		echo "Error: ".$e;
-		die();
-		}
+include '../koneksi.php';
+$tujuan = "SELECT tujuan FROM mstharga";
+$queryTujuan = mysqli_query($con,$tujuan);
+while ($dataTujuan = mysqli_fetch_array($queryTujuan)) { ?>
+	<option value="<?php echo $dataTujuan['tujuan'] ?>"><?php echo $dataTujuan["tujuan"] ?> 
+	</option>
+<?php
+}
+
 ?>
 </select>
 <hr><input type="button" class="btn btn-sm btn-primary" style="width:200px;" value="cari" onclick="cektarif()" ><hr>
