@@ -121,10 +121,7 @@
                                  <label>jumlah barang:</label>
                             <input type="number" id="jumbrg" name="jumbrg" min="0"  placeholder="jumlah barang.." class="form-control" required >
 							</div>
-							<div class="form-group">
-                                 <label>total berat barang (Kg):</label>
-                            <input type="number" id="berat" name="berat" min="0"  placeholder="total berat barang.." class="form-control" required >
-							</div>
+							
 								<div class="form-group">
                                         <label>tipe service:</label>
                                         <input type="text" id="service" pattern="[a-zA-Z]+" name="service" value="door to door" class="form-control" readonly >
@@ -163,22 +160,33 @@
                                                     <label>tujuan:</label>
 <select id="tujuan" name="tujuan" id="tujuan" class="form-control" required >
 
-<option>--Pilih Tujuan--</option>
+  <option>--Pilih Tujuan--</option>
 <?php
 include '../koneksi.php';
 $tujuan = "SELECT tujuan FROM mstharga";
 $queryTujuan = mysqli_query($con,$tujuan);
 while ($dataTujuan = mysqli_fetch_array($queryTujuan)) { ?>
 	<option value="<?php echo $dataTujuan['tujuan'] ?>"><?php echo $dataTujuan["tujuan"] ?> 
+    
 	</option>
 <?php
 }
 
 ?>
 </select>
+</div>
+
+<div class="form-group">
+                                 <label>total berat barang (Kg):</label>
+                            <input type="number" id="berat" name="berat" min="0"  placeholder="total berat barang.." class="form-control" required >
+							</div>
+
+
+
+
 <hr><input type="button" class="btn btn-sm btn-primary" style="width:200px;" value="cari" onclick="cektarif()" ><hr>
                                                 </div>
-                            </div>
+                            
                                             <div class="col-lg-12">
 											<div class="form-group">
                                  <label>catatan (optional):</label>
@@ -307,26 +315,47 @@ while ($dataTujuan = mysqli_fetch_array($queryTujuan)) { ?>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <script src="js/lib/datatables/datatables-init.js"></script>
+
+
+  <script type="text/javascript">
+            $( "#tujuan" ).change(function() {
+              var tujuan = $("#tujuan").val();
+              console.log(tujuan);
+              $.ajax({
+                url: "./ajax_tujuan.php?tujuan=" + tujuan,
+                success: function(result){
+                  
+                 
+                }
+              });
+            });
+
+            $( "#berat" ).change(function() {
+           
+             var berat = $("#berat").val();
+             var tujuan = $("#tujuan").val(); 
+              console.log(berat);
+              $.ajax({
+                url: "./ajax_berat.php?berat=" + berat + "&tujuan=" + tujuan,
+                success: function(result){
+                    console.log(result);
+                  $("#biayakirim").val(result);
+                }
+              });
+            });
+        </script>
+
+
+
+
+
+
+
+
 	
 <script>
 //CEK TARIF
-function cektarif(){
-    var tipe = "vals";
-    var berat = $("#berat").val();
-	var jenispeng = $("#jenispeng").val();
-	var asal = $("#asal").val();
-	var tujuan = $("#tujuan").val();
-	//alert(jenispeng+asal+tujuan);
-	$.ajax({
-        url: 'tarif_pengiriman',
-        type: 'POST',
-        data: {'tipe':tipe,'jenispengiriman':jenispeng,"dari":asal,"ke":tujuan},
-        success: function (msg) {
-			$("#biayakirim").val(msg);
-        }
-    }); 
-	
-}
+
 //SHOW
 function showinputform(num){
 	if(num == 1){
